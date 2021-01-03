@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Notebook</title>
+</head>
+<body>
+<h1>Add user in notebook</h1>
+<form method="POST">
+	{%csrf_token%}
+	{{form.name_of_user}}
+	{{form.possition_of_user}}
+	{{form.age_of_user}}
+
+	<input type="submit" name="">
+</form>
+</body>
+</html>

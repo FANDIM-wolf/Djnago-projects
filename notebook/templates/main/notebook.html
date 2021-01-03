@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Notebook</title>
+</head>
+<body>
+<h1>{{title}}</h1>
+
+{%for el in users%}
+<div>
+<h3>Name:{{el.name_of_user}}</h3>
+<h3>Possition:{{el.possition_of_user}}</h3>
+<h5>Age:{{el.age_of_user}}</h5>	
+<hr>	
+</div>	
+{%endfor%}
+<a href="/about">ADD user</a>
+
+
+</body>
+</html>
