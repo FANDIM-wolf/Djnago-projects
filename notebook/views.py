@@ -24,4 +24,9 @@ def adduser(request):
 	}
 	return render(request,'main/addnote.html',context)
 
+#get information about user
+def get_user(request,pk):
+	user= User.objects.get(pk=pk)
+	#user = User.objects.filter(user_id)
+	return render(request,'main/user.html',{'user':user})
 # Create your views here.

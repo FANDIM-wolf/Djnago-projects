@@ -5,5 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.index),
     path('about/', views.adduser),
+    path('user/<int:pk>/',views.get_user),
+    
     
 ]
