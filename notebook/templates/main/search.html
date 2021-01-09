@@ -1,2 +1,15 @@
+<form method="POST" name="search_form">
+	{%csrf_token%}
+ <input type="text" name="search_line">
+ <input type="submit">
+</form>	
 
-<h2>{{result}}</h2>
+{%for el in results%}
+<div>
+<h3>Name:{{el.name_of_user}}</h3>
+<h3>Possition:{{el.possition_of_user}}</h3>
+<h5>Age:{{el.age_of_user}}</h5>
+<h5>id:{{el.id}}</h5>	
+<hr>	
+</div>	
+{%endfor%}
