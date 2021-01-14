@@ -17,11 +17,12 @@ def index(request):
 		result_user = User.objects.all().filter(login_of_user = login_from_input , password_of_user = password_from_input)
 		Dictionary_of_data["login"] =login_from_input
 		Dictionary_of_data["password"]=password_from_input
+		return redirect('test/')
 
 	else:
 		HttpResponse("Sorry , Account is not defined")
 
-	redirect('test/')
+	
 	return render(request,'main/index.html', {'login_from_input':login_from_input,'password_from_input':password_from_input,'result_user':result_user})
 
 
