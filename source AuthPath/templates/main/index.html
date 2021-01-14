@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AuthPath</title>
+</head>
+<body>
+	<p><h2>Insert your profile data</h2></p>
+	<br>
+	<form action="" method="post" name="auth">
+		{%csrf_token%}
+		<input type="" name="login_input" >
+		<input type="password" name="password_input" >
+		<h1></h1>
+		<input type="submit" name="" placeholder="log in">
+	</form>	
+<div>
+
+{%for el in result_user%}
+<h3>{{el.name_of_user}}</h3>
+<h3>{{el.possition_of_user}}</h3>
+<h5>{{el.age_of_user}}</h5>
+<h5>{{el.id}}</h5>	
+{%endfor%}
+<hr>	
+</div>	    
+
+</body>
+</html>
