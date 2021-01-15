@@ -27,9 +27,14 @@ def index(request):
 
 
 def log(request):
+
 	log_tost = Dictionary_of_data["login"]
 	pas_tost = Dictionary_of_data["password"]
-	return render(request,'main/user.html',{'login':log_tost,'password':pas_tost})
+
+	data_of_user =User.objects.all().filter(login_of_user=log_tost,password_of_user=pas_tost)
+
+
+	return render(request,'main/user.html',{'login':log_tost,'password':pas_tost,'data':data_of_user})
 
 
 # Create your views here.
