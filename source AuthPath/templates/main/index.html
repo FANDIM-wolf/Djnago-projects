@@ -8,13 +8,22 @@
    
     a{
     	text-decoration: none;
-    	color :red;
+    	color :snow;
     }
     #line{
-    background-color:purple;
+    background-color:black;
     width: 110%;
-    height:10%;
+    height:15%;
+    font-family: Lucida Console;
 
+    }
+    #form_call{
+    	margin-left: 40%;
+    	height: 20%;
+    }
+    #variants{
+    	margin-right: 30%;
+    	display: flex;
     }
     </style>
 </head>
@@ -24,27 +33,27 @@
   <div id="line">
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">AuthPath</a>
+      <a class="navbar-brand" style="font-size:27px;"href="#">AuthPath</a>
        
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item active">
+      	<div id="variants">
+    
+          
             <a class="nav-link" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Add User</a>
-          </li>
-         
-        </ul>
-       
+            &nbsp;&nbsp;
+            <a class="nav-link" href="adduser/">Add User</a>         
+        
+        </div>
         <form action="" method="post" name="auth">
 		{%csrf_token%}
-		<input type="" name="login_input" >
-		<input type="password" name="password_input" value="" >
-		<h1></h1>
+		<div id="form_call">
+		<input type="" size="20" name="login_input" >
+		<h3></h3>
+		<input type="password" size="20" name="password_input" value="" >
+		<h3></h3>
 		<input type="submit" name=""  value="log in">
-		
-	</form>
+		</div>
+		</form>
       </div>
     </div>
   </nav>
@@ -56,7 +65,7 @@
      <a>Color , it is just a color</a>
 <div>
 <hr>
-<a href="adduser/" style="color:black; text-decoration: none;">Sign up</a>
+
 
 
 </div>	    
