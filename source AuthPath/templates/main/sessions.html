@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+ 
+
+	<title>AuthPath</title>
+<style>
+   
+    a{
+    	text-decoration: none;
+    	color :snow;
+    }
+    #line{
+    background-color:black;
+    width: 110%;
+    height:5%;
+    font-family: Lucida Console;
+
+    }
+    #form_call{
+    	margin-left: 40%;
+    	height: 20%;
+    }
+    #variants{
+    	margin-right: 30%;
+    	display: flex;
+    }
+    #profile{
+    	background-color: white;
+    	color:black;
+    }
+    #titles{
+    	margin-right: 260px;
+    }
+    #block{
+    	margin-right: 230px;
+    }
+    </style>	
+</head>
+<body>
+<!-- Fixed navbar -->
+  <div id="line">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" style="font-size:27px; color:snow;" href="#">AuthPath</a>
+       
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+      	<div id="variants">
+    
+          
+            <a class="nav-link" aria-current="page" href="/">Home</a>
+            &nbsp;&nbsp;
+             
+        
+        </div>
+       
+</div>
+
+</div>
+
+
+
+</div>
+{%for el in users%}
+<h4>{{el.name_of_user}}</h4>
+<h5>{{el.possition_of_user}}</h5>
+
+
+{%endfor%}
+<h5 style="color:black;">Time:{{time_end}}</h5>
+<h5 style="color:black;">Time of Job:{{result_of_job}}</h5>
+
+</body>
+</html>

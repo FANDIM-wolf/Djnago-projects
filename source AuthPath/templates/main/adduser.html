@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+
+	<title>AuthPath</title>
+	  <style>
+   
+    a{
+    	text-decoration: none;
+    	color :snow;
+    }
+    a:visited {
+    color: snow; /* Цвет посещённой ссылки */
+   } 
+   a:hover {
+    color: snow; /* Цвет ссылки при наведении на нее курсора мыши */  
+    text-decoration: underline; /* Добавляем подчеркивание */
+   }
+    #line{
+    background-color:black;
+    width: 110%;
+    height:15%;
+    font-family: Lucida Console;
+
+    }
+    #form_call{
+    	margin-left: 40%;
+    	height: 20%;
+    }
+    #variants{
+    	margin-right: 30%;
+    	display: flex;
+    }
+    </style>
+</head>
+<body>
+		<header>
+  <!-- Fixed navbar -->
+  <div id="line">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" style="font-size:27px;"href="#">AuthPath</a>
+       
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+      	<div id="variants">
+    
+          
+            <a class="nav-link" aria-current="page" href="/">Home</a>
+            &nbsp;&nbsp;
+            <a class="nav-link" href="#">Add User</a>         
+        
+        </div>
+       </div>
+		</form>
+      </div>
+    </div>
+  </nav>
+</div>
+</header>
+<br>
+<br>
+<br>
+<h1>Add user in data base </h1>
+
+<form method="POST">
+	{%csrf_token%}
+	{{ form.as_p }}
+  <button type="submit">Sign UP</button>
+  
+</form>
+
+</body>
+</html>
