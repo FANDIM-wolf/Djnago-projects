@@ -13,4 +13,25 @@ class User(models.Model):
     age_of_user=models.IntegerField()
     def __str__(self):
         return self.name_of_user
+
 # Create your models here.
+
+#table of accounting 
+
+class Accounting(models.Model):
+    end_of_session=models.CharField(max_length=200)
+    def __str__(self):
+        return self.end_of_session
+
+#table of Posts , post is task for today
+class Post(models.Model):
+    title_of_post = models.CharField(max_length=140)
+    date_of_post = models.DateField(auto_now=False)
+    text_of_post = models.TextField(max_length=350)
+
+    def __str__(self):
+        return self.title_of_post
+        
+
+
+        
