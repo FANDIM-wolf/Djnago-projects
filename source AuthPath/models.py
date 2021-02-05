@@ -20,6 +20,7 @@ class User(models.Model):
 
 class Accounting(models.Model):
     end_of_session=models.CharField(max_length=200)
+    employee=models.CharField(max_length=100)
     def __str__(self):
         return self.end_of_session
 
@@ -28,10 +29,14 @@ class Post(models.Model):
     title_of_post = models.CharField(max_length=140)
     date_of_post = models.DateField(auto_now=False)
     text_of_post = models.TextField(max_length=350)
-
+    remark_of_post= models.CharField(max_length=100)
     def __str__(self):
         return self.title_of_post
+
+
+class Authour(models.Model):
+    authour=models.CharField(max_length=100)
+    def __str__(self):
+        return self.authour
         
-
-
         
