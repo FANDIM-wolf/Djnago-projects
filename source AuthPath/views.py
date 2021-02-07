@@ -10,6 +10,10 @@ import datetime
 import random
 import time
 import datetime
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.utils.datastructures import MultiValueDictKeyError 
 #dictionary for post likes and another staff
 Dictionary_stat_in_project={
 	'name_of_user':""
@@ -21,7 +25,8 @@ Dictionary_of_data = {
 	'password':"",
 	'time':"",
 	'hoursStart':None ,
-	'hoursEnd':  None  
+	'hoursEnd':  None ,
+	'PasswordForFirstFactor':"" 
 }
 def index(request):
 	login_from_input = ""
@@ -107,6 +112,46 @@ def add_post_and_show_it(request,pk):
 			formPost.save()
 	else:
 		formPost = PostForm()
-	return render(request,'main/post.html',{'formPost':formPost, 'posts': posts })		
+	return render(request,'main/post.html',{'formPost':formPost, 'posts': posts })
 
+
+
+#to send email 
+def send_email_and_get_code(request):
+	list_for_code = 'abcdefghijklmnopuwxyz'
+	random_string ='' #for future password
+	email_of_user='' #email of user
+	email_is_sent=None
+	email_password_for_check= '' #check password from email 
+	for i in range(6):
+		a=random.choice(list_for_code)
+		random_string=random_string+a
+	password_for_first_factor = random_string
+	Dictionary_of_data['PasswordForFirstFactor']=password_for_first_factor	 
+	message ="Your password:"+random_string
+	#to get email
+	if request.method == "POST":
+		email_of_user=request.POST['email_entrance']
+	
+
+		email=EmailMessage(
+			'First factor of Authrization',
+			message, #content of message
+			settings.EMAIL_HOST_USER,
+			[email_of_user], #email of user for sending 
+			)
+		email.fail_silently=False
+		email.send()
+		
+		return redirect('password_code/')	
+	return render(request,'main/emailcheck.html',{'email':email_of_user,'email_is_sent':email_is_sent})			
+#check password code 
+def password_code(request):
+	password_code = Dictionary_of_data['PasswordForFirstFactor']
+	if request.method == "POST":
+
+		email_password_for_check=request.POST['email_password']
+		if email_password_for_check == password_code:
+			return redirect('adduser/')
+	return render(request,'main/password.html') 	
 # Create your views here.
