@@ -5,11 +5,15 @@ from .models import User
 from .models import Accounting
 from .models import Post
 from .models import Authour
-from .forms import UserForm , PostForm
+from .forms import UserForm 
 import datetime
 import random
 import time
 import datetime
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.utils.datastructures import MultiValueDictKeyError
 #dictionary for post likes and another staff
 Dictionary_stat_in_project={
 	'name_of_user':""
@@ -21,9 +25,19 @@ Dictionary_of_data = {
 	'password':"",
 	'time':"",
 	'hoursStart':None ,
-	'hoursEnd':  None  
+	'hoursEnd':  None ,
+	'PasswordForFirstFactor':"",
+	'PasswordCheckOfUser':""
 }
 def index(request):
+	#####################################
+	#prepare code for check of user
+	random_text_list = "abcdefghijklmnopuwxyz"
+	random_text_result=""
+	for i in range(3):
+		symbol_for_code = random.choice(random_text_list)
+		random_text_result = random_text_result+symbol_for_code
+	Dictionary_of_data['PasswordCheckOfUser'] = random_text_result
 	login_from_input = ""
 	password_from_input = ""
 	result_user = ""
@@ -45,7 +59,7 @@ def index(request):
 		hour_start = now.hour
 		Dictionary_of_data["hoursStart"]=hour_start
 		##############################################	
-		return redirect('test/')
+		return redirect('acheck/')
 
 	else:
 		HttpResponse("Sorry , Account is not defined")
@@ -100,13 +114,72 @@ def add_post_and_show_it(request,pk):
 	authour=None
 	user=None
 	get_authour=None
-	posts = Post.objects.all()
+	title=None
+	remark=None
+	post_created=None
+	text="none"
+	
 	if request.method == "POST":
-		formPost = PostForm(request.POST)
-		if formPost.is_valid():
-			formPost.save()
-	else:
-		formPost = PostForm()
-	return render(request,'main/post.html',{'formPost':formPost, 'posts': posts })		
+		title=request.POST['title_post']
+		remark=request.POST['text_comment']
+		post_created=Post(title_of_post=title,text_of_post=text,remark_of_post=remark)
+		post_created.save()
+		
+	posts = Post.objects.all()					
+	return render(request,'main/post.html',{ 'posts': posts })
 
+
+
+#to send email 
+def send_email_and_get_code(request):
+	list_for_code = 'abcdefghijklmnopuwxyz'
+	random_string ='' #for future password
+	email_of_user='' #email of user
+	email_is_sent=None
+	email_password_for_check= '' #check password from email 
+	for i in range(6):
+		a=random.choice(list_for_code)
+		random_string=random_string+a
+	password_for_first_factor = random_string
+	Dictionary_of_data['PasswordForFirstFactor']=password_for_first_factor	 
+	message ="Your passcode:"+random_string
+	#to get email
+	if request.method == "POST":
+		email_of_user=request.POST['email_entrance']
+	
+
+		email=EmailMessage(
+			'First factor of Authrization',
+			message, #content of message
+			settings.EMAIL_HOST_USER,
+			[email_of_user], #email of user for sending 
+			)
+		email.fail_silently=False
+		email.send()
+		
+		return redirect('password_code/')	
+	return render(request,'main/emailcheck.html',{'email':email_of_user,'email_is_sent':email_is_sent})			
+#check password code 
+def password_code(request):
+	password_code = Dictionary_of_data['PasswordForFirstFactor']
+	if request.method == "POST":
+
+		email_password_for_check=request.POST['email_password']
+		if email_password_for_check == password_code:
+			return redirect('adduser/')
+	return render(request,'main/password.html')
+
+
+
+#check code and second part of autharization
+def auth_check(request):
+	code_auth_check = ""
+	random_text_result_for_check=Dictionary_of_data['PasswordCheckOfUser']
+	if request.method == "POST":
+		code_auth_check = request.POST['code_check']
+		if code_auth_check == random_text_result_for_check:
+			return redirect('test/')	
+
+	
+	return render(request,'main/auth_check_page.html',{'random_text_result_for_check':random_text_result_for_check,'code_auth_check':code_auth_check}) 	
 # Create your views here.
