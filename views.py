@@ -24,8 +24,8 @@ Dictionary_of_data = {
 	'login':"",
 	'password':"",
 	'time':"",
-	'hoursStart':None ,
-	'hoursEnd':  None ,
+	'hoursStart':0 ,
+	'hoursEnd': 0 ,
 	'PasswordForFirstFactor':"",
 	'PasswordCheckOfUser':""
 }
@@ -34,7 +34,7 @@ def index(request):
 	#prepare code for check of user
 	random_text_list = "abcdefghijklmnopuwxyz"
 	random_text_result=""
-	for i in range(3):
+	for i in range(4):
 		symbol_for_code = random.choice(random_text_list)
 		random_text_result = random_text_result+symbol_for_code
 	Dictionary_of_data['PasswordCheckOfUser'] = random_text_result
@@ -107,7 +107,12 @@ def session_end(request,pk):
 	end_of_time = time.ctime()
 	session =Accounting(end_of_session=end_of_time,employee=exit_of_employee) #create line of end session
 	session.save()
-	return render(request,'main/sessions.html',{'time_end':end_of_time,'result_of_job':result})
+
+	#ADVICE CYCLE 
+	advices = ["If you wanna work better , rest more!","To get position higher , get new knowledges and work harder!","Be strong it means be patient "]
+	advice = random.choice(advices)
+
+	return render(request,'main/sessions.html',{'time_end':end_of_time,'result_of_job':result,"advice":advice})
 
 # add post and show  it  , we show task actually 
 def add_post_and_show_it(request,pk):
